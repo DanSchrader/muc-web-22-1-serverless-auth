@@ -1,0 +1,7 @@
+const bcrypt = require("bcrypt")
+bcrypt.hashSync("password", 12))
+bcrypt.hashSync("password", 12)
+bcrypt.hashSync("password", 12)
+bcrypt.hashSync("password", 16)
+bcrypt.compareSync("password", '$2b$12$oOFdpFcVw1H0JEFauIF5LeqgNVkHiLE0cYshq1VdVF22bEtjUGU4S')
+bcrypt.compareSync("wrong-password", '$2b$12$oOFdpFcVw1H0JEFauIF5LeqgNVkHiLE0cYshq1VdVF22bEtjUGU4S')
