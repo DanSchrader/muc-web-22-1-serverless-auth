@@ -27,9 +27,11 @@ const App = () => {
     navigate('/profile')
   }
 
+  const logout = () => setToken()
+
   return (
     <>
-      <Navbar />
+      <Navbar token={token} onLogout={logout} />
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route

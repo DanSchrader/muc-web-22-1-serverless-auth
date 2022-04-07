@@ -1,12 +1,16 @@
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
-const Navbar = () => {
+const Navbar = ({ token, onLogout }) => {
   return (
     <Nav>
       <NavLink to="/">Welcome</NavLink>
       <NavLink to="/profile">Profile</NavLink>
-      <NavLink to="/login">Login</NavLink>
+      {token ? (
+        <button onClick={onLogout}>logout</button>
+      ) : (
+        <NavLink to="/login">Login</NavLink>
+      )}
     </Nav>
   )
 }
