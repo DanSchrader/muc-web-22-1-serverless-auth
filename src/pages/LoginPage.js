@@ -2,6 +2,10 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import Main from '../components/Main'
 
+const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID
+
+const githubLoginUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}`
+
 const initialCredentials = {
   name: '',
   password: '',
@@ -44,6 +48,7 @@ const LoginPage = ({ onLogin }) => {
         </label>
         <button>Login</button>
       </Form>
+      <a href={githubLoginUrl}>Login with github</a>
     </Main>
   )
 }
