@@ -23,7 +23,7 @@ Content-Type: application/json
 # get user profile that belongs to the access token in the Authorization header
 # asking the server, who am I?
 GET http://localhost:3000/api/profile
-Authorization: Bearer toller-token
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MjRlOWUyZmJhMjkzZmU1ZDU4NDFiYTYiLCJpYXQiOjE2NDkzMjMxNjB9.8ujAg6rL38fIkZECLusfaHK__cMeMyB2RniyDtE7c0U
 
 
 ### Login with GitHub authorization code
