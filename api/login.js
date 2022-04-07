@@ -1,13 +1,7 @@
 import connectToMongodb from '../api-src/db/connectToMongodb'
 import User from '../api-src/model/User'
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-
-const { JWT_SECRET } = process.env
-
-if (!JWT_SECRET) {
-  throw new Error('JWT_SECRET not set')
-}
+import { createToken } from '../api-src/service/jwt-service'
+import { isPasswordMatch } from '../api-src/service/password-service'
 
 const loginHandler = async (request, response) => {
   const { method } = request
@@ -34,13 +28,13 @@ const loginHandler = async (request, response) => {
     return response.status(401).json({ code: 401, message: 'Unauthorized' })
   }
 
-  const isPasswordMatch = await bcrypt.compare(password, foundUser.password)
+  const isMatch = await isPasswordMatch(password, foundUser.password)
 
-  if (!isPasswordMatch) {
+  if (!isMatch) {
     return response.status(401).json({ code: 401, message: 'Unauthorized' })
   }
 
-  const token = jwt.sign({ sub: foundUser._id }, JWT_SECRET)
+  const token = createToken(foundUser._id)
 
   response.status(200).json({ token })
 }

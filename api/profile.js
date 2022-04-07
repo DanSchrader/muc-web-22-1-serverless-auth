@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken'
 import connectToMongodb from '../api-src/db/connectToMongodb'
 import User from '../api-src/model/User'
+import { verifyAndDecode } from '../api-src/service/jwt-service'
 
 const { JWT_SECRET } = process.env
 
@@ -25,17 +25,21 @@ const profileHandler = async (request, response) => {
 
   const token = authorizationHeader.replace('Bearer', '').trim()
 
-  const claims = jwt.verify(token, JWT_SECRET)
+  try {
+    const claims = verifyAndDecode(token)
 
-  const userId = claims.sub
+    const userId = claims.sub
 
-  await connectToMongodb()
+    await connectToMongodb()
 
-  const foundUser = await User.findById(userId)
+    const foundUser = await User.findById(userId)
 
-  foundUser.password = undefined
+    foundUser.password = undefined
 
-  response.status(200).json(foundUser)
+    response.status(200).json(foundUser)
+  } catch (error) {
+    return response.status(403).json({ code: 403, message: 'Forbidden' })
+  }
 }
 
 export default profileHandler
